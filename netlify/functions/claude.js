@@ -1,7 +1,14 @@
 exports.handler = async function(event) {
-  // Only allow POST requests
   if (event.httpMethod !== "POST") {
     return { statusCode: 405, body: "Method Not Allowed" };
+  }
+
+  // Check API key is present
+  if (!process.env.ANTHROPIC_API_KEY) {
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: "ANTHROPIC_API_KEY environment variable is not set" })
+    };
   }
 
   try {
@@ -16,10 +23,19 @@ exports.handler = async function(event) {
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
-        max_tokens: body.max_tokens || 8000,
+        max_tokens: body.max_tokens || 4000,
         messages: body.messages
       })
     });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      return {
+        statusCode: response.status,
+        headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+        body: JSON.stringify({ error: `Anthropic API error: ${response.status}`, details: errorText })
+      };
+    }
 
     const data = await response.json();
 
@@ -34,7 +50,8 @@ exports.handler = async function(event) {
   } catch (err) {
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: err.message })
+      headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+      body: JSON.stringify({ error: err.message, stack: err.stack })
     };
   }
 };
