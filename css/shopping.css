@@ -1,0 +1,69 @@
+/* ══════════════════════════════
+   SHOPPING.CSS — Shopping list, pantry, import
+   ══════════════════════════════ */
+
+/* Shopping List */
+.shop-section {
+  background: var(--white);
+  margin: 0 16px 12px; border-radius: 16px;
+  overflow: hidden; box-shadow: 0 2px 12px var(--shadow);
+}
+.shop-section-header {
+  padding: 14px 16px; background: var(--dark-brown);
+  display: flex; align-items: center; gap: 10px;
+}
+.shop-section-icon { font-size: 1.1rem; }
+.shop-section-name { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--cream); }
+.shop-section-count { margin-left: auto; font-size: 0.75rem; background: rgba(255,255,255,0.2); color: var(--cream); padding: 2px 8px; border-radius: 10px; }
+
+.shop-item {
+  padding: 12px 16px; border-bottom: 1px solid var(--parchment);
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.shop-item:last-child { border-bottom: none; }
+.shop-check {
+  width: 22px; height: 22px; flex-shrink: 0;
+  border: 2px solid var(--tan); border-radius: 6px;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s; margin-top: 1px;
+}
+.shop-check.checked { background: var(--sage); border-color: var(--sage); color: white; font-size: 0.8rem; }
+.shop-item-info { flex: 1; }
+.shop-item-name { font-weight: 500; font-size: 0.92rem; color: var(--text); }
+.shop-item-detail { font-size: 0.78rem; color: var(--text-light); margin-top: 2px; }
+.shop-item-sub { font-size: 0.78rem; color: var(--gold); margin-top: 2px; }
+.shop-item-qty { font-weight: 600; font-size: 0.88rem; color: var(--rust); text-align: right; flex-shrink: 0; }
+.shop-item-meals { font-size: 0.72rem; color: var(--text-light); text-align: right; }
+
+/* Pantry */
+.pantry-item {
+  background: var(--white); margin: 0 16px 8px;
+  border-radius: 12px; padding: 12px 16px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: 0 1px 6px var(--shadow);
+}
+.pantry-icon { font-size: 1.2rem; }
+.pantry-name { flex: 1; font-size: 0.92rem; font-weight: 500; color: var(--text); }
+.pantry-remove { background: none; border: none; color: var(--tan); cursor: pointer; font-size: 1rem; padding: 4px; }
+.pantry-remove:hover { color: var(--rust); }
+
+.pantry-add-row {
+  display: flex; gap: 8px;
+  margin: 0 16px 16px; padding: 12px;
+  background: var(--white); border-radius: 12px;
+  box-shadow: 0 1px 6px var(--shadow);
+}
+.pantry-add-row input { flex: 1; border: none; outline: none; background: none; font-family: 'DM Sans', sans-serif; font-size: 0.92rem; color: var(--text); }
+.pantry-add-btn { background: var(--rust); border: none; color: white; padding: 6px 14px; border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; }
+
+/* Import Recipe */
+.import-card {
+  background: var(--white); margin: 0 16px 16px;
+  border-radius: 16px; padding: 20px;
+  box-shadow: 0 2px 12px var(--shadow);
+}
+.import-card h3 { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--dark-brown); margin-bottom: 12px; }
+.import-row { display: flex; gap: 8px; }
+.import-row input { flex: 1; padding: 10px 14px; border: 1.5px solid var(--parchment); border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.88rem; color: var(--text); background: var(--cream); outline: none; }
+.import-row input:focus { border-color: var(--rust); }
+.import-btn { background: var(--rust); border: none; color: white; padding: 10px 16px; border-radius: 10px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 600; cursor: pointer; white-space: nowrap; }

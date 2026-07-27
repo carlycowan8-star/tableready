@@ -1,0 +1,127 @@
+/* ══════════════════════════════
+   RECIPE.CSS — Recipe screen, cook mode
+   ══════════════════════════════ */
+
+/* Recipe Hero */
+.recipe-hero { background: var(--dark-brown); padding: 0 0 24px; position: relative; }
+.recipe-hero-img { width: 100%; height: 220px; object-fit: cover; display: block; }
+.recipe-hero-img-placeholder {
+  width: 100%; height: 180px;
+  background: linear-gradient(135deg, #3a2a1a, var(--dark-brown));
+  display: flex; align-items: center; justify-content: center; font-size: 4rem;
+}
+.recipe-hero-overlay { padding: 16px 20px 0; }
+
+.recipe-back {
+  display: inline-flex; align-items: center; gap: 6px;
+  color: rgba(255,255,255,0.6); font-size: 0.85rem;
+  cursor: pointer; margin-bottom: 10px;
+  background: none; border: none; font-family: 'DM Sans', sans-serif;
+}
+.recipe-back:hover { color: var(--rust-light); }
+
+.recipe-title-row { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
+.recipe-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.8rem; line-height: 1.2; font-weight: 700;
+  color: var(--cream); margin-bottom: 12px;
+}
+.recipe-fav-btn { background: none; border: none; font-size: 1.6rem; cursor: pointer; flex-shrink: 0; padding: 4px; line-height: 1; }
+
+.recipe-meta-row { display: flex; gap: 16px; flex-wrap: wrap; }
+.recipe-meta-item { display: flex; flex-direction: column; gap: 2px; }
+.recipe-meta-label { font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.5); }
+.recipe-meta-value { font-size: 0.9rem; font-weight: 600; color: var(--cream); }
+
+/* Recipe Tabs */
+.recipe-tabs { display: flex; border-bottom: 2px solid var(--parchment); margin: 0 16px; }
+.recipe-tab {
+  flex: 1; padding: 12px 6px; text-align: center;
+  font-size: 0.8rem; font-weight: 600; cursor: pointer;
+  color: var(--text-light); border-bottom: 2px solid transparent;
+  margin-bottom: -2px; transition: all 0.2s;
+}
+.recipe-tab.active { color: var(--rust); border-bottom-color: var(--rust); }
+.recipe-panel { display: none; padding: 20px 16px; }
+.recipe-panel.active { display: block; }
+
+/* Ingredients */
+.ingredient-row {
+  display: flex; align-items: flex-start; gap: 12px;
+  padding: 10px 0; border-bottom: 1px solid var(--parchment);
+}
+.ingredient-row:last-child { border-bottom: none; }
+.ingredient-qty { font-weight: 700; color: var(--rust); min-width: 52px; font-size: 0.9rem; }
+.ingredient-name { font-size: 0.92rem; color: var(--text); }
+.ingredient-note { font-size: 0.78rem; color: var(--text-light); }
+.sub-card {
+  background: var(--cream); border-radius: 10px;
+  padding: 6px 12px; margin-top: 5px;
+  font-size: 0.8rem; color: var(--text-mid);
+  border-left: 3px solid var(--gold);
+}
+
+/* Steps */
+.step-item { display: flex; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--parchment); }
+.step-item:last-child { border-bottom: none; }
+.step-num {
+  width: 30px; height: 30px; flex-shrink: 0;
+  background: var(--rust); color: white;
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 0.82rem; font-weight: 700;
+}
+.step-text { flex: 1; font-size: 0.92rem; line-height: 1.55; color: var(--text); padding-top: 4px; }
+.step-timer {
+  display: inline-flex; align-items: center; gap: 4px;
+  margin-top: 8px; padding: 4px 10px;
+  background: var(--parchment); border-radius: 8px;
+  font-size: 0.78rem; color: var(--text-mid);
+  cursor: pointer; border: none; font-family: 'DM Sans', sans-serif;
+}
+.step-timer:hover { background: var(--rust); color: white; }
+
+/* Nutrition */
+.nutrition-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+.nutrition-item { background: var(--cream); border-radius: 12px; padding: 14px; text-align: center; }
+.nutrition-value { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--dark-brown); }
+.nutrition-label { font-size: 0.72rem; color: var(--text-light); margin-top: 2px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+/* Tips */
+.tip-card { background: var(--cream); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; border-left: 3px solid var(--rust); }
+.tip-card p { font-size: 0.88rem; line-height: 1.5; color: var(--text); }
+
+/* Cook Mode */
+.cook-mode {
+  position: fixed; inset: 0; z-index: 200;
+  background: var(--dark-brown);
+  display: none; flex-direction: column;
+}
+.cook-mode.visible { display: flex; }
+.cook-header { padding: 20px 20px 16px; display: flex; align-items: center; justify-content: space-between; }
+.cook-close {
+  background: rgba(255,255,255,0.1); border: none;
+  color: white; width: 36px; height: 36px;
+  border-radius: 50%; font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.cook-title-sm { font-size: 0.85rem; color: rgba(255,255,255,0.6); }
+.cook-progress-bar { height: 3px; background: rgba(255,255,255,0.15); margin: 0 20px 24px; }
+.cook-progress-fill { height: 100%; background: var(--rust-light); transition: width 0.4s ease; }
+.cook-step-area {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 24px 28px; text-align: center;
+}
+.cook-step-num { font-size: 0.75rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--rust-light); margin-bottom: 16px; }
+.cook-step-text { font-family: 'Playfair Display', serif; font-size: 1.35rem; line-height: 1.55; color: var(--cream); font-weight: 500; }
+.cook-step-timer-btn {
+  margin-top: 24px; padding: 12px 24px;
+  background: var(--rust); border: none; border-radius: 12px;
+  color: white; font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem; font-weight: 600; cursor: pointer; display: none;
+}
+.cook-step-timer-btn.visible { display: inline-block; }
+.cook-nav { display: flex; gap: 12px; padding: 20px 20px 32px; }
+.cook-nav-btn { flex: 1; padding: 16px; border-radius: 14px; border: none; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+.cook-prev { background: rgba(255,255,255,0.1); color: white; }
+.cook-next { background: var(--rust); color: white; }
