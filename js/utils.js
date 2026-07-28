@@ -79,5 +79,14 @@ async function callClaude(prompt, maxTokens = 2000) {
 
   const clean = text.replace(/```json|```/g, '').trim();
   if (!clean) throw new Error('Empty response from API');
-  return JSON.parse(clean);
+
+  // The model is asked to return only JSON, but sometimes wraps it with a
+  // sentence or two of prose anyway. Extract the outermost {...} object
+  // instead of assuming the whole response is valid JSON on its own.
+  const start = clean.indexOf('{');
+  const end = clean.lastIndexOf('}');
+  if (start === -1 || end === -1 || end < start) {
+    throw new Error('No JSON object found in response');
+  }
+  return JSON.parse(clean.slice(start, end + 1));
 }
