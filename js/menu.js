@@ -36,7 +36,8 @@ Return ONLY valid JSON (no markdown):
     showLoading('Planning your week…', 'Mixing flavors and finding the perfect meals');
     showScreen('screen-menu');
     try {
-      const parsed = await callClaude(this.buildPrompt(prefs), 4000);
+      const maxTokens = Math.min(8000, 1000 + prefs.days * 1000);
+      const parsed = await callClaude(this.buildPrompt(prefs), maxTokens);
       State.currentMenu = parsed.days;
       State.weekBudget = parsed.weekBudget || '';
       State.saveMenu();

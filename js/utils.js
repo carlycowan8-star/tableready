@@ -62,10 +62,22 @@ async function callClaude(prompt, maxTokens = 2000) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ max_tokens: maxTokens, messages: [{ role: 'user', content: prompt }] })
   });
-  const data = await response.json();
-  if (data.error) throw new Error(data.details || data.error);
-  const textBlock = data.content?.find(b => b.type === 'text');
-  if (!textBlock) throw new Error('No text content in response');
-  const text = textBlock.text.replace(/```json|```/g, '').trim();
-  return JSON.parse(text);
+  if (!response.ok) {
+    let errData;
+    try { errData = await response.json(); } catch (e) { throw new Error(`Request failed: ${response.status}`); }
+    throw new Error(errData.details || errData.error || `Request failed: ${response.status}`);
+  }
+
+  const reader = response.body.getReader();
+  const decoder = new TextDecoder();
+  let text = '';
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    text += decoder.decode(value, { stream: true });
+  }
+
+  const clean = text.replace(/```json|```/g, '').trim();
+  if (!clean) throw new Error('Empty response from API');
+  return JSON.parse(clean);
 }
