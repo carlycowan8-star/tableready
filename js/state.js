@@ -4,7 +4,10 @@
    ══════════════════════════════ */
 
 const State = {
-  servings: 4,
+  headcount: { kids: 0, teens: 0, adults: 4, elderly: 0 },
+  get servings() {
+    return this.headcount.kids + this.headcount.teens + this.headcount.adults + this.headcount.elderly;
+  },
   currentMenu: [],
   currentRecipe: null,
   currentRecipeIndex: -1,
@@ -20,7 +23,7 @@ const State = {
   // ── PERSIST HELPERS ──
   saveMenu() {
     localStorage.setItem('tr_menu', JSON.stringify({ days: this.currentMenu, weekBudget: this.weekBudget }));
-    localStorage.setItem('tr_servings', this.servings);
+    localStorage.setItem('tr_headcount', JSON.stringify(this.headcount));
   },
   savePantry() {
     localStorage.setItem('tr_pantry', JSON.stringify(this.pantryItems));
@@ -66,8 +69,14 @@ const State = {
 
   // ── LOAD SAVED STATE ──
   restore() {
-    const savedServings = localStorage.getItem('tr_servings');
-    if (savedServings) this.servings = parseInt(savedServings);
+    const savedHeadcount = localStorage.getItem('tr_headcount');
+    if (savedHeadcount) {
+      try { this.headcount = JSON.parse(savedHeadcount); } catch(e) {}
+    } else {
+      // Back-compat: migrate the old single "tr_servings" number (pre-headcount UI)
+      const savedServings = localStorage.getItem('tr_servings');
+      if (savedServings) this.headcount = { kids: 0, teens: 0, adults: parseInt(savedServings) || 4, elderly: 0 };
+    }
 
     const savedData = localStorage.getItem('tr_menu');
     if (savedData) {

@@ -5,10 +5,18 @@
 
 const Setup = {
 
-  // ── SERVINGS ──
-  changeServings(delta) {
-    State.servings = Math.max(1, Math.min(20, State.servings + delta));
-    document.getElementById('servings-display').textContent = State.servings;
+  // ── HEADCOUNT ──
+  changeHeadcount(category, delta) {
+    State.headcount[category] = Math.max(0, Math.min(20, State.headcount[category] + delta));
+    this.renderHeadcount();
+  },
+
+  renderHeadcount() {
+    document.getElementById('count-kids').textContent = State.headcount.kids;
+    document.getElementById('count-teens').textContent = State.headcount.teens;
+    document.getElementById('count-adults').textContent = State.headcount.adults;
+    document.getElementById('count-elderly').textContent = State.headcount.elderly;
+    document.getElementById('total-servings').textContent = State.servings;
   },
 
   // ── CHIPS ──
@@ -35,10 +43,17 @@ const Setup = {
     const allChips = [...document.querySelectorAll('#screen-setup .chip.selected')].map(c => c.textContent.trim());
     const daysChip = allChips.find(t => t.includes('day')) || '3 days';
 
+    const who = [];
+    const h = State.headcount;
+    if (h.kids > 0) who.push(`${h.kids} young kid${h.kids > 1 ? 's' : ''} (under 10)`);
+    if (h.teens > 0) who.push(`${h.teens} tween/teen${h.teens > 1 ? 's' : ''}`);
+    if (h.adults > 0) who.push(`${h.adults} adult${h.adults > 1 ? 's' : ''}`);
+    if (h.elderly > 0) who.push(`${h.elderly} elderly`);
+
     return {
       servings: State.servings,
       days: parseInt(daysChip) || 3,
-      who: allChips.filter(c => ['👶 Young kids (under 10)', '🧑 Tweens / Teens', '🧑‍🍳 Adults', '👴 Elderly'].includes(c)),
+      who,
       diet: allChips.filter(c =>
         c.includes('🍽️') || c.includes('🥩') || c.includes('🦁') || c.includes('💪') ||
         c.includes('🍗') || c.includes('🫀') || c.includes('⚡') || c.includes('🌿') ||
@@ -58,6 +73,6 @@ const Setup = {
 
   // ── RESTORE UI FROM STATE ──
   restoreUI() {
-    document.getElementById('servings-display').textContent = State.servings;
+    this.renderHeadcount();
   }
 };

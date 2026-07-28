@@ -32,6 +32,10 @@ Return ONLY valid JSON (no markdown):
 
   // ── BUILD MENU ──
   async build() {
+    if (State.servings < 1) {
+      showToast('Add at least 1 person at the table');
+      return;
+    }
     const prefs = Setup.getPreferences();
     showLoading('Planning your week…', 'Mixing flavors and finding the perfect meals');
     showScreen('screen-menu');

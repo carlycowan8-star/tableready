@@ -38,23 +38,42 @@
       <h2>Who's eating?</h2>
 
       <div class="form-row">
-        <label class="form-label">Servings (people)</label>
-        <div class="servings-row">
-          <button class="servings-btn" onclick="Setup.changeServings(-1)">−</button>
-          <div><div class="servings-num" id="servings-display">4</div></div>
-          <button class="servings-btn" onclick="Setup.changeServings(1)">+</button>
-          <span class="servings-label">people</span>
-        </div>
-      </div>
-
-      <div class="form-row">
         <label class="form-label">Who's at the table?</label>
-        <div class="chip-group">
-          <div class="chip" onclick="Setup.toggleChip(this,'who')">👶 Young kids (under 10)</div>
-          <div class="chip" onclick="Setup.toggleChip(this,'who')">🧑 Tweens / Teens</div>
-          <div class="chip selected" onclick="Setup.toggleChip(this,'who')">🧑‍🍳 Adults</div>
-          <div class="chip" onclick="Setup.toggleChip(this,'who')">👴 Elderly</div>
+        <div class="headcount-list">
+          <div class="headcount-row">
+            <span class="headcount-label">👶 Young kids <span class="headcount-sublabel">(under 10)</span></span>
+            <div class="headcount-stepper">
+              <button class="headcount-btn" onclick="Setup.changeHeadcount('kids',-1)">−</button>
+              <div class="headcount-num" id="count-kids">0</div>
+              <button class="headcount-btn" onclick="Setup.changeHeadcount('kids',1)">+</button>
+            </div>
+          </div>
+          <div class="headcount-row">
+            <span class="headcount-label">🧑 Tweens / Teens</span>
+            <div class="headcount-stepper">
+              <button class="headcount-btn" onclick="Setup.changeHeadcount('teens',-1)">−</button>
+              <div class="headcount-num" id="count-teens">0</div>
+              <button class="headcount-btn" onclick="Setup.changeHeadcount('teens',1)">+</button>
+            </div>
+          </div>
+          <div class="headcount-row">
+            <span class="headcount-label">🧑‍🍳 Adults</span>
+            <div class="headcount-stepper">
+              <button class="headcount-btn" onclick="Setup.changeHeadcount('adults',-1)">−</button>
+              <div class="headcount-num" id="count-adults">4</div>
+              <button class="headcount-btn" onclick="Setup.changeHeadcount('adults',1)">+</button>
+            </div>
+          </div>
+          <div class="headcount-row">
+            <span class="headcount-label">👴 Elderly</span>
+            <div class="headcount-stepper">
+              <button class="headcount-btn" onclick="Setup.changeHeadcount('elderly',-1)">−</button>
+              <div class="headcount-num" id="count-elderly">0</div>
+              <button class="headcount-btn" onclick="Setup.changeHeadcount('elderly',1)">+</button>
+            </div>
+          </div>
         </div>
+        <div class="headcount-total">Total: <strong id="total-servings">4</strong> people</div>
       </div>
 
       <div class="divider"></div>
